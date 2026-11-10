@@ -1,0 +1,15 @@
+name: Tự tạo hệ điều hành Radxa
+on:
+  workflow_dispatch: # Lệnh này để kích hoạt nút bấm "Run workflow" trên web
+
+jobs:
+  build-armbian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: armbian/build@main # Gọi bộ công cụ kéo ghép tính năng của Armbian
+        with:
+          armbian_token: "${{ secrets.GITHUB_TOKEN }}"
+          armbian_target: "build"       # Chọn build nguyên một hệ điều hành (.img)
+          armbian_board: "radxazero3e"  # Chọn đúng bo mạch của bạn
+          armbian_release: "bookworm"   # Chọn phiên bản Debian ổn định nhất
+          armbian_ui: "desktop"         # Chọn giao diện Desktop để lướt được Chrome
