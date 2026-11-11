@@ -14,7 +14,8 @@ jobs:
 
       - name: Đóng gói hệ điều hành Desktop
         run: |
-          sudo ./compile.sh build BOARD=radxa-cubie-a7a BRANCH=legacy BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base DESKTOP_APPGROUPS_SELECTED="browsers" KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes
+          # Xóa bỏ hoàn toàn chữ sudo ở đầu câu lệnh
+          ./compile.sh build BOARD=radxa-cubie-a7a BRANCH=current BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base DESKTOP_APPGROUPS_SELECTED="browsers" KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes
 
       - name: Xuất file cài đặt ra ngoài
         uses: actions/upload-artifact@v4
