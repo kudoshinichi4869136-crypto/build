@@ -12,9 +12,15 @@ jobs:
           repository: NickAlilovic/build
           ref: Radxa-A7A
 
+      - name: Cấu hình QEMU binfmt cho máy chủ
+        run: |
+          # Kích hoạt giả lập đa kiến trúc để container Armbian không bị lỗi binfmts
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static binfmt-support
+          sudo update-binfmts --enable
+
       - name: Đóng gói hệ điều hành Desktop
         run: |
-          # Bỏ hẳn chữ docker đi, giữ nguyên các tham số build
           ./compile.sh BOARD=radxa-cubie-a7a BRANCH=legacy BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base DESKTOP_APPGROUPS_SELECTED="browsers" KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes DOWNLOAD_UBOOT=yes
 
       - name: Xuất file cài đặt ra ngoài
