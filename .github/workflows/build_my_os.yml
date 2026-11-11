@@ -1,4 +1,4 @@
-name: Tự tạo hệ điều hành pi armbian A7A
+name: Pi armbian A7A
 on:
   workflow_dispatch:
 
@@ -6,10 +6,18 @@ jobs:
   build-armbian:
     runs-on: ubuntu-latest
     steps:
-      - uses: NickAlilovic/build@Radxa-A7A
+      - name: Tải mã nguồn hỗ trợ Radxa Cubie A7A
+        uses: actions/checkout@v4
         with:
-          armbian_token: "${{ secrets.GITHUB_TOKEN }}"
-          armbian_target: "build"
-          armbian_board: "radxa-cubie-a7a"
-          armbian_release: "bookworm"
-          armbian_ui: "xfce"
+          repository: NickAlilovic/build
+          ref: Radxa-A7A
+
+      - name: Đóng gói hệ điều hành Desktop
+        run: |
+          sudo ./compile.sh build BOARD=radxa-cubie-a7a BRANCH=legacy BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes
+
+      - name: Xuất file cài đặt ra ngoài
+        uses: actions/upload-artifact@v4
+        with:
+          name: pi-armbian-cubie-a7a
+          path: output/images/*.img*
