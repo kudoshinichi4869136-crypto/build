@@ -12,10 +12,10 @@ jobs:
           repository: NickAlilovic/build
           ref: Radxa-A7A
 
-      - name: Đóng gói hệ điều hành Desktop trong Docker
+      - name: Đóng gói hệ điều hành Desktop
         run: |
-          # Chạy trực tiếp qua lệnh docker của armbian, dùng đúng branch legacy và cấp đủ tham số
-          ./compile.sh docker BOARD=radxa-cubie-a7a BRANCH=legacy BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base DESKTOP_APPGROUPS_SELECTED="browsers" KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes DOWNLOAD_UBOOT=yes
+          # Bỏ hẳn chữ docker đi, giữ nguyên các tham số build
+          ./compile.sh BOARD=radxa-cubie-a7a BRANCH=legacy BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base DESKTOP_APPGROUPS_SELECTED="browsers" KERNEL_CONFIGURE=no RELEASE=bookworm EXPERT=yes DOWNLOAD_UBOOT=yes
 
       - name: Xuất file cài đặt ra ngoài
         uses: actions/upload-artifact@v4
